@@ -1,2 +1,2 @@
-[webserver]
-Ip_address ansible_user=ec2-user
+[webservers]
+172.31.14.142 ansible_user=ec2-user

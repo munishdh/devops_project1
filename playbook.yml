@@ -3,19 +3,16 @@
   become: true
   become_user: root
   tasks:
-  - name: install tomcat
+  - name: install docker and git on host server/ansible client
     package: name={{ item }} state=present
     loop:
-     - tomcat
      - docker
      - git
-  - name: start tomcat
-    service: name=tomcat state=started
   - name: start docker
     service: name=docker state=started
   - name: get repo
-    git: repo=https://github.com/Sonal0409/dockerdemo.git dest=/tmp/gitrepo
+    git: repo=https://github.com/munishdh/devops_project1.git dest=/tmp/gitrepo
   - name: Build Dockerfile
-    command: chdir=/tmp/gitrepo docker build -t addressbook:ansible .
+    command: chdir=/tmp/gitrepo docker build -t munishdh/addressbook:ansible .
   - name: run Image
-    command: docker run -itd -P addressbook:ansible
+    command: docker run -itd -P munishdh/addressbook:ansible

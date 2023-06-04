@@ -19,7 +19,7 @@
   - name: Build Dockerfile
     command: chdir=/tmp/gitrepo docker build -t munishdh/addressbook:ansible .
   - name: Login to docker
-    command: docker login -u munishdh -p Muni9042
+    command: docker login -u munishdh -p {{ docker_hub_pass }}
   - name: tag the docker image and push the image to dockerhub
     command: docker tag munishdh/addressbook:ansible munishdh/myjenkinsdocker:ansible
   - name: push the image to dockerhub

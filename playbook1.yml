@@ -16,17 +16,11 @@
       state: absent
   - name: clone the repo
     git: repo=https://github.com/munishdh/devops_project1.git dest=/tmp/gitrepo
-  - name: Build and Push Docker image to Dockerhub Registry
-      docker_image:
-        name: addressbook-war
-        build:
-          path: /tmp/gitrepo
-          pull: true
-        state: present
-        tag: "latest"
-        force_tag: yes
-        repository: munishdh/myjenkinsdocker:latest
-        push: yes
-        source: build
-  - name: run Image
-    command: docker run -itd -P munishdh/myjenkinsdocker:latest
+  - name: Build Dockerfile
+    command: chdir=/tmp/gitrepo docker build -t munishdh/addressbook:ansible .
+  - name: Login to docker
+    command: docker login -u munishdh -p Muni9042
+  - name: tag the docker image and push the image to dockerhub
+    command: docker tag munishdh/addressbook:ansible munishdh/myjenkinsdocker:ansible
+  - name: push the image to dockerhub
+    command: docker push munishdh/myjenkinsdocker:ansible

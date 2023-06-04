@@ -29,4 +29,4 @@
         push: yes
         source: build
   - name: run Image
-    command: docker run -itd -P munishdh/addressbook:ansible
+    command: docker run -itd -P munishdh/myjenkinsdocker:latest

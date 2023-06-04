@@ -10,7 +10,9 @@
      - git
   - name: start docker
     service: name=docker state=started
-  - name: get repo
+  - name: clean the destination repo path if exists
+    command: [[ -d /tmp/gitrepo ]] && rm -rf /tmp/gitrepo
+  - name: clone the repo
     git: repo=https://github.com/munishdh/devops_project1.git dest=/tmp/gitrepo
   - name: Build and Push Docker image to Dockerhub Registry
       docker_image:
